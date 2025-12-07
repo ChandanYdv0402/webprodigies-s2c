@@ -1,0 +1,6 @@
+export const isBypassRoutes = [
+    "/api/polar/webhook/*",
+    "/api/auth(.*)",
+    "/api/inngest(.*)",
+    "/convex(.*)",
+]
