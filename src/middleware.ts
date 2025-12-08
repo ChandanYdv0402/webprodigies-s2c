@@ -17,6 +17,7 @@ export default convexAuthNextjsMiddleware(async (request, {convexAuth}) => {
   if(ProtectedMatcher(request)&& !authed){
     return nextjsMiddlewareRedirect(request, '/auth/sign-in')
   }
+  return
 });
  
 export const config = {
