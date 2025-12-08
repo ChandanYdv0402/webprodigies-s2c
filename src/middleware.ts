@@ -7,6 +7,7 @@ export default convexAuthNextjsMiddleware(async (request, {convexAuth}) => {
   if(BypassMatcher(request)) {
     return ;
   }
+  const authed = await convexAuth.isAuthenticated();
 });
  
 export const config = {
