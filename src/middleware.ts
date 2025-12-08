@@ -18,7 +18,13 @@ export default convexAuthNextjsMiddleware(async (request, {convexAuth}) => {
     return nextjsMiddlewareRedirect(request, '/auth/sign-in')
   }
   return
-});
+},
+{
+ cookieConfig: {
+  maxAge: 60*60*24*30,
+ } 
+}
+);
  
 export const config = {
   // The following matcher runs middleware on all routes
