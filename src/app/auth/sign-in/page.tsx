@@ -2,6 +2,7 @@ import { GalleryVerticalEnd } from "lucide-react"
 
 import { LoginForm } from "@/components/login-form"
 import { useConvexAuth } from "convex/react"
+import { useAuth } from "@/hooks/use-auth"
 
 export default function LoginPage() {
   useAuth()
