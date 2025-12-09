@@ -89,8 +89,19 @@ export const useAuth = () => {
 
     const handlesignout = async () => {
         setIsLoading(true)
-        await signOut()
-        setIsLoading(false)
+        try {
+            await signOut()
+            // If successful, maybe redirect to home page?
+            router.push('/sign-in')
+            } catch (error) {
+                // If failed, show an error message
+                console.error(error)
+                signInForm.setError('password',{ 
+                    message: 'Invalid email or password',
+                })
+            } finally {
+                setIsLoading(false) // Stop loading (whether it worked or failed)
+            }
     }
 
     return{
