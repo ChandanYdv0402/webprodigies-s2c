@@ -1,0 +1,20 @@
+import {convexAuthNextjsToken} from "@convex-dev/auth/nextjs"
+import {preloadQuery} from "convex/nextjs"
+import { api } from "@/convex/_generated/api"
+
+
+export const ProfileQuery  = async () => {
+    return await profileQuery(
+        api.user.getCurrentUser,
+        {},
+        {token: await convexAuthNextjsToken()}
+    )
+}
+
+export const SubscriptionEntitlementQuery = async () => { 
+
+    const rawProfile = await  ProfileQuery()
+    const profile = normalizeProfile(
+        rawProfile._valueJSON as unknow as ConvexUserRaw | null 
+    )
+}
