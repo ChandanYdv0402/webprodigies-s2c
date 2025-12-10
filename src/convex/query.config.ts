@@ -11,4 +11,10 @@ export const ProfileQuery  = async () => {
     )
 }
 
-export const SubscriptionEntitlementQuery = async () => { }
+export const SubscriptionEntitlementQuery = async () => { 
+
+    const rawProfile = await  ProfileQuery()
+    const profile = normalizeProfile(
+        rawProfile._valueJSON as unknow as ConvexUserRaw | null 
+    )
+}
