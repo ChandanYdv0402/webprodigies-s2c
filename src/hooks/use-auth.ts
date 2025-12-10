@@ -13,18 +13,18 @@ const signInSchema = z.object({
 
 // Generate a SignUpSchema
 const signUpSchema = z.object({
-firstName: z.string() .min(2, 'First name must be at least 2 characters'),
-lastName: z.string().min(2, 'Last name must be at least 2 characters'),
-email: z.string().email('Invalid email address'),
-password: z.string() .min(6, 'Password must be at least 6 characters'),
+    firstName: z.string().min(2, 'First name must be at least 2 characters'),
+    lastName: z.string().min(2, 'Last name must be at least 2 characters'),
+    email: z.string().email('Invalid email address'),
+    password: z.string().min(6, 'Password must be at least 6 characters'),
 })
 
 // Generate a SignUpData type
-type signInData = z.infer<typeof signInSchema>
-type signUpData = z.infer<typeof signUpSchema>
+export type signInData = z.infer<typeof signInSchema>
+export type signUpData = z.infer<typeof signUpSchema>
 
 export const useAuth = () => {
-    const {signIn, signOut} = useAuthActions()
+    const { signIn, signOut } = useAuthActions()
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false)
 
@@ -34,7 +34,7 @@ export const useAuth = () => {
             email: '',
             password: '',
         }
-    }) 
+    })
 
     const signUpForm = useForm<signUpData>({
         resolver: zodResolver(signUpSchema),
@@ -48,43 +48,44 @@ export const useAuth = () => {
 
     const handleSignIn = async (data: signInData) => {
         setIsLoading(true)
-         try {
-    await signIn("password", { 
-        email: data.email,
-        password: data.password,
-        flow: "signIn",
-    })
-    // If successful, maybe redirect to home page?
-    router.push('/dashboard')
-    } catch (error) {
-        // If failed, show an error message
-        console.error(error)
-        signInForm.setError('password',{
-            message: 'Invalid email or password',
-        })
-    } finally {
-        setIsLoading(false) // Stop loading (whether it worked or failed)
+        try {
+            await signIn("password", {
+                email: data.email,
+                password: data.password,
+                flow: "signIn",
+            })
+            // If successful, maybe redirect to home page?
+            router.push('/dashboard')
+        } catch (error) {
+            // If failed, show an error message
+            console.error(error)
+            signInForm.setError('password', {
+                message: 'Invalid email or password',
+            })
+        } finally {
+            setIsLoading(false) // Stop loading (whether it worked or failed)
+        }
     }
 
     const handleSignUp = async (data: signUpData) => {
         setIsLoading(true)
         try {
-            await signIn("password", { 
+            await signIn("password", {
                 email: data.email,
                 password: data.password,
                 flow: "signUp",
             })
             // If successful, maybe redirect to home page?
             router.push('/dashboard')
-            } catch (error) {
-                // If failed, show an error message
-                console.error(error)
-                signInForm.setError('password',{ 
-                    message: 'Invalid email or password',
-                })
-            } finally {
-                setIsLoading(false) // Stop loading (whether it worked or failed)
-            }
+        } catch (error) {
+            // If failed, show an error message
+            console.error(error)
+            signInForm.setError('password', {
+                message: 'Invalid email or password',
+            })
+        } finally {
+            setIsLoading(false) // Stop loading (whether it worked or failed)
+        }
     }
 
     const handlesignout = async () => {
@@ -93,18 +94,18 @@ export const useAuth = () => {
             await signOut()
             // If successful, maybe redirect to home page?
             router.push('/sign-in')
-            } catch (error) {
-                // If failed, show an error message
-                console.error(error)
-                signInForm.setError('password',{ 
-                    message: 'Invalid email or password',
-                })
-            } finally {
-                setIsLoading(false) // Stop loading (whether it worked or failed)
-            }
+        } catch (error) {
+            // If failed, show an error message
+            console.error(error)
+            signInForm.setError('password', {
+                message: 'Invalid email or password',
+            })
+        } finally {
+            setIsLoading(false) // Stop loading (whether it worked or failed)
+        }
     }
 
-    return{
+    return {
         signInForm,
         signUpForm,
         handleSignIn,
@@ -112,5 +113,4 @@ export const useAuth = () => {
         handlesignout,
         isLoading,
     }
-}
 }

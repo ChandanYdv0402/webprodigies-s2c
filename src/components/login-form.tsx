@@ -15,11 +15,23 @@ import {
   FieldSeparator,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+import { UseFormReturn } from "react-hook-form"
+import { signInData } from "@/hooks/use-auth"
+
+interface LoginFormProps extends React.ComponentProps<"div"> {
+  signInForm: UseFormReturn<signInData>
+  handleSignIn: (data: signInData) => void
+  isLoading: boolean
+}
 
 export function LoginForm({
   className,
+  signInForm,
+  handleSignIn,
+  isLoading,
   ...props
-}: React.ComponentProps<"div">) {
+}: LoginFormProps) {
+  const { register, handleSubmit } = signInForm
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -62,6 +74,8 @@ export function LoginForm({
                   type="email"
                   placeholder="m@example.com"
                   required
+                  {...register('email')}
+                  disabled={isLoading}
                 />
               </Field>
               <Field>
@@ -74,10 +88,18 @@ export function LoginForm({
                     Forgot your password?
                   </a>
                 </div>
-                <Input id="password" type="password" required />
+                <Input
+                  id="password"
+                  type="password"
+                  required
+                  {...register('password')}
+                  disabled={isLoading}
+                />
               </Field>
               <Field>
-                <Button type="submit">Login</Button>
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                  {isLoading ? "Logging in..." : "Login"}
+                </Button>
                 <FieldDescription className="text-center">
                   Don&apos;t have a S2C account? <a href="#">Sign up</a>
                 </FieldDescription>
