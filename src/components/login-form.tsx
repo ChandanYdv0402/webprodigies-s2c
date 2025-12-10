@@ -31,7 +31,7 @@ export function LoginForm({
   isLoading,
   ...props
 }: LoginFormProps) {
-  const { register, handleSubmit } = signInForm
+  const { register, handleSubmit, formState: { errors } } = signInForm
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -42,7 +42,9 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form
+            onSubmit={handleSubmit(handleSignIn)}
+          >
             <FieldGroup>
               <Field>
                 <Button variant="outline" type="button">
@@ -76,7 +78,13 @@ export function LoginForm({
                   required
                   {...register('email')}
                   disabled={isLoading}
+                  className={errors.email ? 'border-destructive' : ''}
                 />
+                {errors.email && (
+                  <p className="text-xs text-destructive">
+                    {errors.email.message}
+                  </p>
+                )}
               </Field>
               <Field>
                 <div className="flex items-center">
@@ -94,7 +102,18 @@ export function LoginForm({
                   required
                   {...register('password')}
                   disabled={isLoading}
+                  className={errors.password ? 'border-destructive' : ''}
                 />
+                {errors.password && (
+                  <p className="text-xs text-destructive">
+                    {errors.password.message}
+                  </p>
+                )}
+                {errors.root && (
+                  <p className="text-xs text-destructive">
+                    {errors.root.message}
+                  </p>
+                )}
               </Field>
               <Field>
                 <Button type="submit" className="w-full" disabled={isLoading}>
