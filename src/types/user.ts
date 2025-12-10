@@ -33,5 +33,16 @@ export const normalizeProfile = (
 
 
     const name = combinedSlug(raw.name!) || extractNameFormEmail(raw.email)
-    
+
+
+    return {
+
+        id: raw._id,
+        createdAtMs: raw._creationTime,
+        email: raw.email,
+        emailVerificationAtMs: raw.emailVerificationTime,
+        image: raw.image,
+        name,
+
+    }
 }
