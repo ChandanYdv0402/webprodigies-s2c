@@ -23,9 +23,9 @@ export const SubscriptionEntitlementQuery = async () => {
 
 
 const entitlement = await preloadedQuery(
-    api.subscriptions.getEntitlement,
+    api.subscription.hasEntitlement,
     {
-        userId: profile?.id as  ,
+        userId: profile?.id as  Id<"users"> 
     },
     {
         token: await convexAuthNextjsToken()
