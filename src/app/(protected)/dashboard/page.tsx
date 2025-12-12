@@ -1,12 +1,17 @@
-import React from 'react'
+import { SubscriptionEntitlementQuery } from '@/convex/query.config'
+import { redirect } from 'next/navigation'  // FIXED
 
-//TODO: Add billing logic 
+//TODO: remove billing hardcoded  path 
+const page = async () => {   
+  const { entitlement, profileName } = await SubscriptionEntitlementQuery()
 
-const page = () => {
-  const {entitlement , profileName} = await SubscriptionEntitlementQuery()
-  return (
-    <div>page</div>
-  )
+  if (!entitlement._valueJSON) {
+    //redirect(`/billing/${combinedSlug(profileName!)}`)   
+    redirect(`/dashboard/${combinedSlug(profileName!)}`)   
+
+  
+}
+redirect(`/dashboard/${combinedSlug(profileName!)}`)   
 }
 
 export default page
