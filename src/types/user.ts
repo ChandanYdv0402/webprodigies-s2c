@@ -1,31 +1,33 @@
-export  type ConvexUserRaw = {
-    _creationTime : number 
-    _id: string 
-    email: string 
-    emailVerificationTime?: number 
-    image?: string 
-    name?: string 
+import { combinedSlug } from "@/lib/utils";
+
+export type ConvexUserRaw = {
+    _creationTime: number
+    _id: string
+    email: string
+    emailVerificationTime?: number
+    image?: string
+    name?: string
 }
 
 export type Profile = {
-    id: String 
-    createdAtMs: number 
-    email: string 
+    id: String
+    createdAtMs: number
+    email: string
     emailVerificationAtMs?: number
-    image?: string 
-    name?: string 
+    image?: string
+    name?: string
 }
 
 
 export const normalizeProfile = (
-    raw: ConvexUserRaw | null 
-) : Profile | null => { 
+    raw: ConvexUserRaw | null
+): Profile | null => {
 
-    if (!raw ) return null 
+    if (!raw) return null
 
-    const extractNameFormEmail = (email: string ) : string => {
+    const extractNameFormEmail = (email: string): string => {
         const username = email.split('@')[0]
-        return  username 
+        return username
             .split(/[._-]/)
             .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLocaleLowerCase())
             .join(' ')
