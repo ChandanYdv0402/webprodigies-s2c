@@ -3,6 +3,8 @@ import {preloadedQueryResult, preloadQuery} from "convex/nextjs"
 import { api } from "@/convex/_generated/api"
 import { ConvexUserRaw , normalizeProfile } from "@/types/user"
 import { preload } from "react-dom"
+import { Id } from "convex/_generated/dataModel"
+import { profile } from "console"
 
 
 export const ProfileQuery  = async () => {
@@ -17,7 +19,7 @@ export const SubscriptionEntitlementQuery = async () => {
 
     const rawProfile = await  ProfileQuery()
     const profile = normalizeProfile(
-        rawProfile._valueJSON as unknow as ConvexUserRaw | null 
+        rawProfile._valueJSON as unknown as ConvexUserRaw | null 
     )
 }
 
