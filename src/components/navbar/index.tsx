@@ -3,16 +3,22 @@
 import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
 import React from 'react'
+import { useQuery } from 'convex/react'
+import { api } from '@/convex/_generated/api'
+import { Id } from '@/convex/_generated/dataModel'
 
-type Props = {}
-
-const Navbar = (props: Props) => {
+    type Props = {}
+    const Navbar = (props: Props) => {      
     const params = useSearchParams()
     const projectId = params.get('project')
-    const profileName = params.get('profileName')
     const pathname = usePathname()
-    const hasCanvas = pathname.includes('canvas')
-    const hasStyleGuide = pathname.includes('style-guide')
+    const project = useQuery(
+    api.projects.getProject,
+    projectId ? { projectId: projectId as Id<'projects'> } : 'skip'
+    )
+    const hasCanvas = pathname. includes ('canvas')
+    const hasStyleGuide = pathname. includes ('style-guide')
+
 
     return (
         <div className="grid grid-cols-2 lg:grid-cols-3 p-6 fixed top-0 left-0 right-0
@@ -36,6 +42,7 @@ const Navbar = (props: Props) => {
             </div>
         </div>
     )
+}
 }
 
 export default Navbar
