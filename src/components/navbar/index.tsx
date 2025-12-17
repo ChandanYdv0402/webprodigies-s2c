@@ -7,17 +7,17 @@ import { useQuery } from 'convex/react'
 import { api } from '@/convex/_generated/api'
 import { Id } from '@/convex/_generated/dataModel'
 
-    type Props = {}
-    const Navbar = (props: Props) => {      
+type Props = {}
+const Navbar = (props: Props) => {
     const params = useSearchParams()
     const projectId = params.get('project')
     const pathname = usePathname()
     const project = useQuery(
-    api.projects.getProject,
-    projectId ? { projectId: projectId as Id<'projects'> } : 'skip'
+        api.project.getProject,
+        projectId ? { projectId: projectId as Id<'projects'> } : 'skip'
     )
-    const hasCanvas = pathname. includes ('canvas')
-    const hasStyleGuide = pathname. includes ('style-guide')
+    const hasCanvas = pathname.includes('canvas')
+    const hasStyleGuide = pathname.includes('style-guide')
 
 
     return (
