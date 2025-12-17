@@ -11,8 +11,8 @@ const Navbar = (props: Props) => {
     const projectId = params.get('project')
     const profileName = params.get('profileName')
     const pathname = usePathname()
-    const hasCanvas = pathname.includes ('canvas')
-    const hasStyleGuide = pathname.includes ('style-guide')
+    const hasCanvas = pathname.includes('canvas')
+    const hasStyleGuide = pathname.includes('style-guide')
 
     return (
         <div className="grid grid-cols-2 lg:grid-cols-3 p-6 fixed top-0 left-0 right-0
@@ -26,14 +26,16 @@ const Navbar = (props: Props) => {
                     <div className="w-4 h-4 rounded-full bg-white"></div>
                 </Link>
                 {!hasCanvas ||
-                 (!hasStyleGuide && (
-                <div className="lg: inline-block hidden rounded-full text-primary/60 border
+                    (!hasStyleGuide && (
+                        <div className="lg: inline-block hidden rounded-full text-primary/60 border
                             border-white/[0.12] backdrop-blur-xl bg-white/[0.08] px-4 py-2 text-sm
                             saturate-150">
-                    Project / {project?.name}
-                </div>
-                ))}
+                            Project / {projectId}
+                        </div>
+                    ))}
             </div>
         </div>
     )
 }
+
+export default Navbar
