@@ -4,10 +4,10 @@ import { GalleryVerticalEnd } from "lucide-react"
 
 import { LoginForm } from "@/components/login-form"
 import { useConvexAuth } from "convex/react"
-import { useAuth} from "@/hooks/use-auth"
+import { useAuth } from "@/hooks/use-auth"
 
 export default function LoginPage() {
-  const { signInForm, handleSignIn, isLoading } = useAuth()
+  const { signInForm, handleSignIn, handleSocialSignIn, isLoading } = useAuth()
   const {
     register,
     handleSubmit,
@@ -22,7 +22,7 @@ export default function LoginPage() {
           </div>
           S2C Login
         </a>
-        <LoginForm signInForm={signInForm} handleSignIn={handleSignIn} isLoading={isLoading}/>
+        <LoginForm signInForm={signInForm} handleSignIn={handleSignIn} handleSocialSignIn={handleSocialSignIn} isLoading={isLoading} />
       </div>
     </div>
   )

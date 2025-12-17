@@ -1,35 +1,31 @@
-import {convexAuthNextjsToken} from "@convex-dev/auth/nextjs"
-import {preloadedQueryResult, preloadQuery} from "convex/nextjs"
-import { api } from "@/convex/_generated/api"
-import { ConvexUserRaw , normalizeProfile } from "@/types/user"
-import { preload } from "react-dom"
-import { Id } from "convex/_generated/dataModel"
-import { profile } from "console"
+import { convexAuthNextjsToken } from "@convex-dev/auth/nextjs/server";
+import { preloadQuery } from "convex/nextjs";
+import { api } from "../../convex/_generated/api";
+import { ConvexUserRaw, normalizeProfile } from "@/types/user";
+import { Id } from "../../convex/_generated/dataModel";
 
-
-export const ProfileQuery  = async () => {
+export const ProfileQuery = async () => {
     return await preloadQuery(
         api.user.getCurrentUser,
         {},
-        {token: await convexAuthNextjsToken()}
-    )
-}
+        { token: await convexAuthNextjsToken() }
+    );
+};
 
-export const SubscriptionEntitlementQuery = async () => { 
-
-    const rawProfile = await  ProfileQuery()
+export const SubscriptionEntitlementQuery = async () => {
+    const rawProfile = await ProfileQuery();
     const profile = normalizeProfile(
-        rawProfile._valueJSON as unknown as ConvexUserRaw | null 
-    )
-}
+        rawProfile._valueJSON as unknown as ConvexUserRaw | null
+    );
 
-
-const entitlement = await preloadedQuery(
-    api.subscription.hasEntitlement,
-    {
-        userId: profile?.id as  Id<"users"> 
-    },
-    {
-        token: await convexAuthNextjsToken()
-    }
-)
+    const entitlement = await preloadQuery(
+        api.subscription.hasEntitlement,
+        {
+            userId: profile?.id as Id<"users">
+        },
+        {
+            token: await convexAuthNextjsToken()
+        }
+    );
+    return { entitlement, profile };
+};

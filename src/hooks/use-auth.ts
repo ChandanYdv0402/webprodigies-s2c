@@ -88,6 +88,23 @@ export const useAuth = () => {
         }
     }
 
+
+
+    const handleSocialSignIn = async (provider: string) => {
+        setIsLoading(true)
+        try {
+            await signIn(provider)
+            // If successful, maybe redirect to home page?
+            // router.push('/dashboard') 
+        } catch (error) {
+            // If failed, show an error message
+            console.error(error)
+            // You might want to handle global errors here or set a form error if applicable
+        } finally {
+            setIsLoading(false) // Stop loading (whether it worked or failed)
+        }
+    }
+
     const handlesignout = async () => {
         setIsLoading(true)
         try {
@@ -111,6 +128,7 @@ export const useAuth = () => {
         handleSignIn,
         handleSignUp,
         handlesignout,
+        handleSocialSignIn,
         isLoading,
     }
 }
