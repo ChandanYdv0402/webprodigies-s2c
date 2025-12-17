@@ -8,10 +8,10 @@ type Props = {
 }
 const Layout = async ({ children }: Props) => {
   const { profile, entitlement } = await SubscriptionEntitlementQuery()
-  if (!entitlement._valueJSON) {
-    //TODO: Remove billing hardcoded path
-    redirect(`/dashboard/${combinedSlug(profile?.name!)}`)
-  }
+  // if (!entitlement._valueJSON) {
+  //   //TODO: Remove billing hardcoded path
+  //   redirect(`/dashboard/${combinedSlug(profile?.name!)}`)
+  // }
   return (
     <div className="grid grid-cols-1">
       <Navbar />
