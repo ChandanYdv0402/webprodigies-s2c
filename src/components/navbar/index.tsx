@@ -43,6 +43,5 @@ import { Id } from '@/convex/_generated/dataModel'
         </div>
     )
 }
-}
 
 export default Navbar

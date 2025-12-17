@@ -1,4 +1,4 @@
-import { SubscriptionEntitlementQuery } from '@/convex/query.config'
+import { SubscriptionEntitlementQuery } from '@/lib/convex-queries'
 import { combinedSlug } from '@/lib/utils'
 import { redirect } from 'next/navigation'
 
