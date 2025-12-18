@@ -8,7 +8,7 @@ import { ConvexClientProvider } from "@/components/providers/ConvexClientProvide
 import ReduxProvider from "@/redux/provider";
 import { ConvexUserRaw, normalizeProfile } from "@/types/user";
 import { ProfileQuery } from "@/lib/convex-queries";
-  
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -48,7 +48,7 @@ export default async function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              <ReduxProvider preloadedState={{ user: profile }}>
+              <ReduxProvider preloadedState={{ profile }}>
                 {children}
               </ReduxProvider>
               <Toaster />
