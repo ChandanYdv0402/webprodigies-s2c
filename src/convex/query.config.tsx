@@ -61,4 +61,19 @@ export const ProjectsQuery = async () => {
         projects,
         profile,
     }
+
+    export const StyleGuideQuery = async (projectId: string) => {
+  const styleGuide = await preloadQuery(
+    api.projects.getProjectStyleGuide,
+    {
+      projectId: projectId as Id<'projects'>,
+    },
+    {
+      token: await convexAuthNextjsToken(),
+    }
+  )
+
+  return { styleGuide }
+}
+
 }

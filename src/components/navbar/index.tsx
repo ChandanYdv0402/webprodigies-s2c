@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname, useSearchParams } from 'next/navigation'
+import { usePathname, useSearchParams, useParams } from 'next/navigation'
 import React from 'react'
 import { useQuery } from 'convex/react'
 import { api } from '@/convex/_generated/api'
@@ -27,6 +27,7 @@ type TabsProps = {
 
 const Navbar = () => {
     const params = useSearchParams()
+    const { session } = useParams()
     const projectId = params.get('project')
     const pathname = usePathname()
 
@@ -35,18 +36,18 @@ const Navbar = () => {
     const tabs: TabsProps[] = [
         {
             label: 'Canvas',
-            href: `/dashboard//canvas?project=${projectId}`,
+            href: `/dashboard/${session}/canvas?project=${projectId}`,
             icon: <Hash className="h-4 w-4" />,
         },
         {
             label: 'Style Guide',
-            href: `/dashboard//style-guide?project=${projectId}`,
+            href: `/dashboard/${session}/style-guide?project=${projectId}`,
             icon: <LayoutTemplate className="h-4 w-4" />,
         },
     ]
     const project = useQuery(
         api.project.getProject,
-        projectId ? { projectId: projectId as Id<'projects'> } : 'skip'
+        projectId && projectId !== 'null' ? { projectId: projectId as Id<'projects'> } : 'skip'
     )
     const hasCanvas = pathname.includes('canvas')
     const hasStyleGuide = pathname.includes('style-guide')
