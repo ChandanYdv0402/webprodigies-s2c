@@ -37,6 +37,11 @@ const projectsSlice = createSlice({
   name: 'projects',
   initialState,
 reducers: {
+    fetchProjectsStart: (state) => {
+  state.isLoading = true
+  state.error = null
+},
+
   fetchProjectsSuccess: (
     state,
     action: PayloadAction<{ projects: ProjectSummary[]; total: number }>
