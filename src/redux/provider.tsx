@@ -3,6 +3,7 @@ import React, { ReactNode, useRef } from 'react'
 import { Provider } from 'react-redux'
 import { makeStore, AppStore } from './store'
 import { RootState } from './store'
+import { ReduxAuthSync } from '@/components/providers/ReduxAuthSync'
 
 const ReduxProvider = ({
     children,
@@ -16,7 +17,10 @@ const ReduxProvider = ({
         storeRef.current = makeStore(preloadedState)
     }
 
-    return <Provider store={ storeRef.current }> { children } </Provider>
+    return <Provider store={storeRef.current}>
+        <ReduxAuthSync />
+        {children}
+    </Provider>
 }
 
 export default ReduxProvider
