@@ -11,6 +11,7 @@ import { LayoutTemplate } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar'
 import image from 'next/image'
+import { useAppSelector } from '@/redux/store'
 
 
 
@@ -29,6 +30,7 @@ const Navbar = () => {
     const pathname = usePathname()
 
 
+    const me = useAppSelector((state) => state.profile)
     const tabs: TabsProps[] = [
         {
             label: 'Canvas',
@@ -53,7 +55,7 @@ const Navbar = () => {
             z-50">
             <div className="flex items-center gap-4">
                 <Link
-                    href={`/dashboard/`}
+                    href={`/dashboard/${me?.name}`}
                     className="w-8 h-8 rounded-full border-3 border-white bg-black flex    
                         items-center justify-center"
                 >
@@ -100,7 +102,7 @@ const Navbar = () => {
                     <CircleQuestionMark className = "size-5 text-white"/>
                     </Button>
                     <Avatar className="size-12 ml-2">
-                        <AvatarImage  />
+                        <AvatarImage  src = {me?.image || ''}/>
                         <AvatarFallback>
                         <User className="size-5 text-black" />
                         </AvatarFallback>
