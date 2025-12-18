@@ -31,7 +31,7 @@ export const useProjectCreation = () => {
             const thumbnail = generateGradientThumbnail()
 
 
-            const result = await fetchMutation(api.projects.createProject, {
+            const result = await fetchMutation(api.project.createProject, {
                 userId: user.id as Id<'users'>,
                 name: name || undefined,
                 sketchesData: {
@@ -42,22 +42,22 @@ export const useProjectCreation = () => {
                 },
                 thumbnail,
             })
-           dispatch(
-        addProject({
-            _id: result.projectId,
-            name: result.name,
-            projectNumber: result.projectNumber,
-            thumbnail,
-            lastModified: Date.now(),
-            createdAt: Date.now(),
-            isPublic: false,
-        })
-        )
-        dispatch(createProjectSuccess())
-        toast.success('Project created successfully!')
+            dispatch(
+                addProject({
+                    _id: result.projectId,
+                    name: result.name,
+                    projectNumber: result.projectNumber,
+                    thumbnail,
+                    lastModified: Date.now(),
+                    createdAt: Date.now(),
+                    isPublic: false,
+                })
+            )
+            dispatch(createProjectSuccess())
+            toast.success('Project created successfully!')
         } catch (error) {
-        dispatch(createProjectFailure('Failed to create project'))
-        toast.error('Failed to create project')
+            dispatch(createProjectFailure('Failed to create project'))
+            toast.error('Failed to create project')
         }
 
 

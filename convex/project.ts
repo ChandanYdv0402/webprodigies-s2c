@@ -1,5 +1,6 @@
 import { v } from "convex/values"
-import { query, mutation } from "./_generated/server"
+import { query, mutation, MutationCtx } from "./_generated/server"
+import { Id } from "./_generated/dataModel"
 import { getAuthUserId } from "@convex-dev/auth/server"
 
 export const getProject = query({
@@ -32,7 +33,7 @@ export const createProject = mutation({
         console.log('🚀 [Convex] Creating project for user:', userId)
         const projectNumber = await getNextProjectNumber(ctx, userId)
         const projectName = name ?? `Project ${projectNumber}`
-        
+
         const projectId = await ctx.db.insert('projects', {
             userId,
             name: projectName,
@@ -54,13 +55,14 @@ export const createProject = mutation({
             name: projectName,
             projectNumber,
         }
+    },
+});
 
 
-    });
 
 async function getNextProjectNumber(
-    ctx: any,
-    userId: string
+    ctx: MutationCtx,
+    userId: Id<"users">
 ): Promise<number> {
     // Get or create project counter for this user
     const counter = await ctx.db
@@ -87,3 +89,29 @@ async function getNextProjectNumber(
 
     return projectNumber
 }
+
+export const getUserProjects = query({
+    args: {
+        userId: v.id('users'),
+        limit: v.optional(v.number()),
+    },
+    handler: async (ctx, { userId, limit = 20 }) => {
+        const allProjects = await ctx.db
+            .query('projects')
+            .withIndex('by_userId_lastModified', (q) => q.eq('userId', userId))
+            .order('desc')
+            .collect()
+
+        const projects = allProjects.slice(0, limit)
+
+        return projects.map((project) => ({
+            _id: project._id,
+            name: project.name,
+            projectNumber: project.projectNumber,
+            thumbnail: project.thumbnail,
+            lastModified: project.lastModified,
+            createdAt: project.createdAt,
+            isPublic: project.isPublic,
+        }))
+    },
+})

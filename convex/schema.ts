@@ -13,7 +13,7 @@ const schema = defineSchema({
     thumbnail: v.optional(v.string()),
     projectNumber: v.number(),
     lastModified: v.number(),
-  }),
+  }).index("by_userId_lastModified", ["userId", "lastModified"]),
   subscriptions: defineTable({
     userId: v.id("users"),
     status: v.string(),
