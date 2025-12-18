@@ -2,11 +2,14 @@
 
 import { useProjectCreation } from '@/hooks/use-project'
 import React from 'react'
-import { Plus } from 'lucide-react'
+import Link from 'next/link'
+import { useAppSelector } from '@/redux/store'
+import Plus from 'lucide-react'
 
 const ProjectsList = () => {
 const { projects, canCreate } = useProjectCreation()
 
+const user = useAppSelector((state) => state.profile)
 if (!canCreate) {
   return (
     <div className="text-center py-12">
@@ -39,16 +42,22 @@ if (!canCreate) {
       No projects yet
     </h3>
 
-    <p className="text-sm text-muted-foreground mb-6">
-      Create your first project to get started
-    </p>
-  </div>
-) : ()}
+   <p className="text-sm text-muted-foreground mb-6">
+  Create your first project to get started
+</p>
+</div>
+)
+: (
+<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+  {projects.map((project: any) => (
+    <Link
+      key={project._id}
+      href={`/dashboard/${user?.name}/canvas?projectId=${project._id}`}
+    >
+    </Link>
+  ))}
+</div>
+)}
 
-
-
-    </div>
-  )
-}
 
 export default ProjectsList
