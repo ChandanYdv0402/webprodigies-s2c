@@ -9,9 +9,10 @@ import { Id } from '@/convex/_generated/dataModel'
 import { CircleQuestionMark, Hash, User } from 'lucide-react'
 import { LayoutTemplate } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import image from 'next/image'
 import { useAppSelector } from '@/redux/store'
+import CreateProject from '@/components/buttons/project'
 
 
 
@@ -94,19 +95,21 @@ const Navbar = () => {
             <div className="flex items-center gap-4 justify-end">
                 <span className="text-sm text-white/50">TODO: credits</span>
                 <Button
-                variant="secondary"
-                className="rounded-full h-12 w-12 flex items-center justify-center
+                    variant="secondary"
+                    className="rounded-full h-12 w-12 flex items-center justify-center
                 backdrop-blur-xl bg-white/[0.08] border border-white/[0.12] saturate-150
                 hover:bg-white/[0.12]"
                 >
-                    <CircleQuestionMark className = "size-5 text-white"/>
-                    </Button>
-                    <Avatar className="size-12 ml-2">
-                        <AvatarImage  src = {me?.image || ''}/>
-                        <AvatarFallback>
+                    <CircleQuestionMark className="size-5 text-white" />
+                </Button>
+                <Avatar className="size-12 ml-2">
+                    <AvatarImage src={me?.image || ''} />
+                    <AvatarFallback>
                         <User className="size-5 text-black" />
-                        </AvatarFallback>
-                    </Avatar>
+                    </AvatarFallback>
+                </Avatar>
+                {!hasCanvas && !hasStyleGuide && <CreateProject />}
+
             </div>
         </div>
     )
