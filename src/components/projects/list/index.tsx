@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { useAppSelector } from '@/redux/store'
 import { Plus } from 'lucide-react'
 import Image from 'next/image'
+import { formatDistanceToNow } from 'date-fns'
 
 const ProjectsList = () => {
   const { projects, canCreate } = useProjectCreation()
@@ -71,6 +72,19 @@ return (
                     </div>
                   )}
                 </div>
+
+                <div className="space-y-1">
+                  <h3 className="font-medium text-foreground text-sm truncate group-hover:text-primary transition-colors">
+                    {project.name}
+                  </h3>
+
+                  <p className="text-xs text-muted-foreground">
+                    {formatDistanceToNow(new Date(project.lastModified), {
+                      addSuffix: true,
+                    })}
+                  </p>
+                </div>
+
               </div>
             </Link>
 
