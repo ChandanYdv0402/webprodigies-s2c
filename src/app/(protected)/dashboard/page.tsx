@@ -1,15 +1,16 @@
-import { SubscriptionEntitlementQuery } from '@/lib/convex-queries'
+import { SubscriptionEntitlementQuery } from '@/convex/query.config'
 import { combinedSlug } from '@/lib/utils'
 import { redirect } from 'next/navigation'
 
-const page = async () => {
-  const { entitlement, profile } = await SubscriptionEntitlementQuery()
+// TODO: Remove billing hardcoded path
+const Page = async () => {
+  const { entitlement, profileName } = await SubscriptionEntitlementQuery()
+  if (!entitlement._valueJSON) {
+    // redirect(`/billing/${combinedSlug(profileName!)}`)
+    redirect(`/dashboard/${combinedSlug(profileName!)}`)
+  }
 
-  // if (!entitlement?._valueJSON) {
-  //   redirect(`/billing/${combinedSlug(profile?.name!)}`)
-  // }
-
-  redirect(`/dashboard/${combinedSlug(profile?.name!)}`)
+  redirect(`/dashboard/${combinedSlug(profileName!)}`)
 }
 
-export default page
+export default Page
