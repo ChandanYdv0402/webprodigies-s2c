@@ -1,5 +1,7 @@
+import ProjectsProvider from '@/components/projects/list/provider'
+import ProjectsList from '@/components/projects/list'
 import { ProjectsQuery } from '@/convex/query.config'
-import React from 'react'
+import React, { Children } from 'react'
 
 const Page = async () => {
   const { projects, profile } = await ProjectsQuery()
@@ -19,7 +21,15 @@ const Page = async () => {
     )
   }
 
-  return <div></div>
+  return (
+    <ProjectsProvider initialProjects={projects}>
+      <div className="container mx-auto py-36">
+        <ProjectsList />
+      </div>
+    </ProjectsProvider>
+  )
+
+
 }
 
 export default Page
