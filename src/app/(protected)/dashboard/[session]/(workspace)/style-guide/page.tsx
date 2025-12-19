@@ -13,20 +13,10 @@ type Props = {
 }
 
 const Page = async ({ searchParams }: Props) => {
-    const projectId = (await searchParams).project
+    const guide = existingStyleGuide.styleGuide?._valueJSON as unknown as StyleGuide
 
-    if (!projectId || projectId === 'null') {
-        return <div>Project not found</div>
-    }
-
-    const existingStyleGuide = await StyleGuideQuery(projectId)
-
-
-
-    const colorguide = existingStyleGuide.styleGuide?._valueJSON as unknown as StyleGuide
-
-    const colorGuide = colorguide?.colorSections || []
-    const typographyGuide = colorguide?.typographySections || []
+    const colorGuide = guide?.colorSections || []
+    const typographyGuide = guide?.typographySections || []
 
     const existingMoodBoardImages = await MoodBoardImagesQuery(projectId)
     const guideImages = existingMoodBoardImages.images
@@ -64,8 +54,11 @@ const Page = async ({ searchParams }: Props) => {
 
             </TabsContent>
 
+            <TabsContent value="typography">
+                <StyleGuideTypography typographyGuide={typographyGuide} />
+            </TabsContent>
 
-            
+
         </div>
     )
 }
