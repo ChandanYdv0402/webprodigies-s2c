@@ -13,15 +13,18 @@ type Props = {
 }
 
 const Page = async ({ searchParams }: Props) => {
-    const guide = existingStyleGuide.styleGuide?._valueJSON as unknown as StyleGuide
+  const projectId = (await searchParams).project
+  const existingStyleGuide = await StyleGuideQuery(projectId)
 
-    const colorGuide = guide?.colorSections || []
-    const typographyGuide = guide?.typographySections || []
+  const guide = existingStyleGuide.styleGuide
+    ?._valueJSON as unknown as StyleGuide
 
-    const existingMoodBoardImages = await MoodBoardImagesQuery(projectId)
-    const guideImages = existingMoodBoardImages.images
-        ._valueJSON as unknown as MoodBoardImage[]
+  const colorGuide = guide?.colorSections || []
+  const typographyGuide = guide?.typographySections || []
 
+  const existingMoodBoardImages = await MoodBoardImagesQuery(projectId)
+  const guideImages = existingMoodBoardImages.images
+    ._valueJSON as unknown as MoodBoardImage[]
 
 
     return (
