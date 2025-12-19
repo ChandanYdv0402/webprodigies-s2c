@@ -13,6 +13,8 @@ const schema = defineSchema({
     thumbnail: v.optional(v.string()),
     projectNumber: v.number(),
     lastModified: v.number(),
+    moodBoardImages: v.optional(v.array(v.string())),
+    styleGuide: v.optional(v.string()),
   }).index("by_userId_lastModified", ["userId", "lastModified"]),
   subscriptions: defineTable({
     userId: v.id("users"),

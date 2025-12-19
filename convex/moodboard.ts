@@ -34,6 +34,9 @@ const images = await Promise.all(
     }
   })
 )
+    return images
+  .filter((image) => image !== null)
+  .sort((a, b) => a!.index - b!.index)
 
   },
 })
