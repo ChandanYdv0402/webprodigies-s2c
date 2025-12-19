@@ -13,18 +13,18 @@ type Props = {
 }
 
 const Page = async ({ searchParams }: Props) => {
-  const projectId = (await searchParams).project
-  const existingStyleGuide = await StyleGuideQuery(projectId)
+    const projectId = (await searchParams).project
+    const existingStyleGuide = await StyleGuideQuery(projectId)
 
-  const guide = existingStyleGuide.styleGuide
-    ?._valueJSON as unknown as StyleGuide
+    const guide = existingStyleGuide.styleGuide
+        ?._valueJSON as unknown as StyleGuide
 
-  const colorGuide = guide?.colorSections || []
-  const typographyGuide = guide?.typographySections || []
+    const colorGuide = guide?.colorSections || []
+    const typographyGuide = guide?.typographySections || []
 
-  const existingMoodBoardImages = await MoodBoardImagesQuery(projectId)
-  const guideImages = existingMoodBoardImages.images
-    ._valueJSON as unknown as MoodBoardImage[]
+    const existingMoodBoardImages = await MoodBoardImagesQuery(projectId)
+    const guideImages = existingMoodBoardImages.images
+        ._valueJSON as unknown as MoodBoardImage[]
 
 
     return (
@@ -50,7 +50,6 @@ const Page = async ({ searchParams }: Props) => {
                             </p>
                         </div>
                     </div>
-
                 ) : (
                     <ThemeContent colorGuide={colorGuide} />
                 )}
@@ -58,7 +57,7 @@ const Page = async ({ searchParams }: Props) => {
             </TabsContent>
 
             <TabsContent value="typography">
-                <StyleGuideTypography typographyGuide={typographyGuide} />
+                {/* <StyleGuideTypography typographyGuide={typographyGuide} /> */}
             </TabsContent>
 
 
