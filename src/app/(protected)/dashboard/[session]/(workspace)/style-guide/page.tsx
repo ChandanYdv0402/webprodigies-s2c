@@ -13,6 +13,8 @@ type Props = {
 }
 
 const Page = async ({ searchParams }: Props) => {
+    const { project: projectId } = await searchParams
+    const existingStyleGuide = await StyleGuideQuery(projectId)
     const guide = existingStyleGuide.styleGuide?._valueJSON as unknown as StyleGuide
 
     const colorGuide = guide?.colorSections || []
@@ -20,7 +22,7 @@ const Page = async ({ searchParams }: Props) => {
 
     const existingMoodBoardImages = await MoodBoardImagesQuery(projectId)
     const guideImages = existingMoodBoardImages.images
-        ._valueJSON as unknown as MoodBoardImage[]
+        ?._valueJSON as unknown as MoodBoardImage[]
 
 
 
@@ -30,7 +32,7 @@ const Page = async ({ searchParams }: Props) => {
                 value="colours"
                 className="space-y-8"
             >
-                {!guideImages.length ? (
+                {!guideImages?.length ? (
                     <div className="space-y-8">
                         <div className="text-center py-20">
                             <div className="w-16 h-16 mx-auto mb-4 rounded-lg bg-muted flex items-center justify-center">
@@ -55,7 +57,10 @@ const Page = async ({ searchParams }: Props) => {
             </TabsContent>
 
             <TabsContent value="typography">
-                <StyleGuideTypography typographyGuide={typographyGuide} />
+                {/* <StyleGuideTypography typographyGuide={typographyGuide} /> */}
+                <div className="text-center py-20">
+                    <p className="text-muted-foreground">Typography guide component under construction.</p>
+                </div>
             </TabsContent>
 
 
