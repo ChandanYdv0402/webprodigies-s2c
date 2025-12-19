@@ -27,7 +27,8 @@ const Page = async ({ searchParams }: Props) => {
     const colorGuide = colorguide?.colorSections || []
     const typographyGuide = colorguide?.typographySections || []
 
-    
+    const existingMoodBoardImages = await MoodBoardImagesQuery(projectId)
+
 
 
     return (
