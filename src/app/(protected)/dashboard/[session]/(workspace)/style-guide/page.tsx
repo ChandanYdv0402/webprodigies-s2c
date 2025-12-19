@@ -1,10 +1,11 @@
 import { MoodBoardImagesQuery, StyleGuideQuery } from '@/convex/query.config'
-import { TabsContent } from '@/components/ui/tabs'
+import { Tabs, TabsContent } from '@/components/ui/tabs'
 import React from 'react'
 import { StyleGuide } from '@/redux/api/style-guide'
 import { MoodBoardImage } from '@/hooks/use-styles'
 import { Palette } from 'lucide-react'
 import { ThemeContent } from '@/components/style/theme'
+import StyleGuideTypography from '@/components/style/typography'
 
 type Props = {
     searchParams: Promise<{
@@ -57,7 +58,7 @@ const Page = async ({ searchParams }: Props) => {
             </TabsContent>
 
             <TabsContent value="typography">
-                {/* <StyleGuideTypography typographyGuide={typographyGuide} /> */}
+                <StyleGuideTypography typographyGuide={typographyGuide} />
             </TabsContent>
 
 
