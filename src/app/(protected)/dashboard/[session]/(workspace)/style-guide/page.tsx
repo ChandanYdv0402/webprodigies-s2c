@@ -46,7 +46,7 @@ const Page = async ({ searchParams }: Props) => {
                             </h3>
 
                             <p className="text-sm text-muted-foreground max-w-md mx-auto mb-6">
-                                Upload images to your mood board and generate an AI-powered
+                                upload images to your mood board and generate an AI-powered
                                 style guide with colors and typography.
                             </p>
                         </div>
@@ -54,17 +54,19 @@ const Page = async ({ searchParams }: Props) => {
                 ) : (
                     <ThemeContent colorGuide={colorGuide} />
                 )}
-
             </TabsContent>
 
             <TabsContent value="typography">
-                <StyleGuideTypography typographyGuide={typographyGuide} />
+                <StyleGuideTypography
+                    typographyGuide={typographyGuide}
+                />
             </TabsContent>
 
-
+            <TabsContent value="moodboard">
+                {/* <MoodBoard guideImages={guideImages} /> */}
+            </TabsContent>
         </div>
     )
 }
-
 
 export default Page
