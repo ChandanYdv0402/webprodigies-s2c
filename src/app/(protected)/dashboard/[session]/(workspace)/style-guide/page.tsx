@@ -13,7 +13,15 @@ type Props = {
 }
 
 const Page = async ({ searchParams }: Props) => {
-    const { project: projectId } = await searchParams
+    const projectId = (await searchParams).project
+
+    if (!projectId || projectId === 'null') {
+        return (
+            <div className="flex items-center justify-center p-20">
+                <p className="text-muted-foreground">No project selected</p>
+            </div>
+        )
+    }
     const existingStyleGuide = await StyleGuideQuery(projectId)
     const guide = existingStyleGuide.styleGuide?._valueJSON as unknown as StyleGuide
 

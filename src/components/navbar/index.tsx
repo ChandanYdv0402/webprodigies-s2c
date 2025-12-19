@@ -63,14 +63,13 @@ const Navbar = () => {
                 >
                     <div className="w-4 h-4 rounded-full bg-white"></div>
                 </Link>
-                {!hasCanvas ||
-                    (!hasStyleGuide && (
-                        <div className="lg:inline-block hidden rounded-full text-primary/60 border
-                            border-white/[0.12] backdrop-blur-xl bg-white/[0.08] px-4 py-2 text-sm
-                            saturate-150">
-                            Project / {project?.name}
-                        </div>
-                    ))}
+                {(hasCanvas || hasStyleGuide) && project?.name && (
+                    <div className="lg:inline-block hidden rounded-full text-primary/60 border
+                        border-white/[0.12] backdrop-blur-xl bg-white/[0.08] px-4 py-2 text-sm
+                        saturate-150">
+                        Project / {project.name}
+                    </div>
+                )}
             </div>
             <div className="lg:flex hidden items-center justify-center gap-2">
                 <div className="flex items-center gap-2 backdrop-blur-xl bg-white/[0.08]

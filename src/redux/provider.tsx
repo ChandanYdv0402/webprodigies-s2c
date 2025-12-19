@@ -12,12 +12,12 @@ const ReduxProvider = ({
     children: ReactNode
     preloadedState?: Partial<RootState>
 }) => {
-    const storeRef = useRef<AppStore>()
+    const storeRef = useRef<AppStore | null>(null)
     if (!storeRef.current) {
         storeRef.current = makeStore(preloadedState)
     }
 
-    return <Provider store={storeRef.current}>
+    return <Provider store={storeRef.current!}>
         <ReduxAuthSync />
         {children}
     </Provider>
